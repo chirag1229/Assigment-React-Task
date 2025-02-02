@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { CalendarIcon, ChevronDown } from "lucide-react";
-import Button from "react-bootstrap/Button";
+// import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
 
-
 // Define types for the form fields' state
 interface BidData {
-  id:number,
+  id: number;
   bidNo: string;
   createPerson: string;
   assignedStaff: string;
@@ -55,6 +54,8 @@ export default function BidForm() {
     e.preventDefault();
     const existingBids: BidData[] = JSON.parse(localStorage.getItem("bids") || "[]");
 
+    console.log(existingBids)
+
     // Create an object to store the form data
     const bidData: BidData = {
       id: existingBids.length + 1,
@@ -78,8 +79,6 @@ export default function BidForm() {
       remarks,
     };
 
-    // Get existing bids from local storage, or an empty array if none exist
-
     // Add the new bid data to the existing bids array
     existingBids.push(bidData);
 
@@ -87,7 +86,9 @@ export default function BidForm() {
     localStorage.setItem("bids", JSON.stringify(existingBids));
 
     console.log("Form submitted", bidData);
-    navigate("/");
+
+    // Navigate to the dashboard after the form is submitted
+    navigate("/dashboard");
   };
 
   return (
@@ -101,11 +102,10 @@ export default function BidForm() {
             <div className="space-y-2">
               <Form.Label htmlFor="bidNo">Bid No.</Form.Label>
               <input
-               required
+                required
                 id="bidNo"
                 value={bidNo}
                 onChange={(e) => setBidNo(e.target.value)}
-
                 className="w-full p-2 border rounded-md"
               />
             </div>
@@ -113,11 +113,10 @@ export default function BidForm() {
             <div className="space-y-2">
               <Form.Label htmlFor="createPerson">Bid Create Person Name</Form.Label>
               <input
-              required
+                required
                 id="createPerson"
                 value={createPerson}
                 onChange={(e) => setCreatePerson(e.target.value)}
-
                 className="w-full p-2 border rounded-md"
               />
             </div>
@@ -128,7 +127,7 @@ export default function BidForm() {
               <div className="flex items-center border rounded-md p-2">
                 <CalendarIcon className="mr-2 text-gray-500" />
                 <input
-                 required
+                  required
                   type="date"
                   value={loadingDate || ""}
                   onChange={(e) => setLoadingDate(e.target.value)}
@@ -141,11 +140,10 @@ export default function BidForm() {
             <div className="space-y-2">
               <Form.Label htmlFor="assignedStaff">Assigned Staff</Form.Label>
               <input
-               required
+                required
                 id="assignedStaff"
                 value={assignedStaff}
                 onChange={(e) => setAssignedStaff(e.target.value)}
-
                 className="w-full p-2 border rounded-md"
               />
             </div>
@@ -153,12 +151,11 @@ export default function BidForm() {
             <div className="space-y-2">
               <Form.Label htmlFor="phone">Phone Number</Form.Label>
               <input
-               required
+                required
                 id="phone"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 type="tel"
-
                 className="w-full p-2 border rounded-md"
               />
             </div>
@@ -166,12 +163,11 @@ export default function BidForm() {
             <div className="space-y-2">
               <Form.Label htmlFor="numOfResponse">No. of Response</Form.Label>
               <input
-               required
+                required
                 id="numOfResponse"
                 value={numOfResponse}
                 onChange={(e) => setNumOfResponse(e.target.value)}
                 type="number"
-
                 className="w-full p-2 border rounded-md"
               />
             </div>
@@ -179,11 +175,10 @@ export default function BidForm() {
             <div className="space-y-2">
               <Form.Label htmlFor="loadingPoint">Loading Point</Form.Label>
               <input
-               required
+                required
                 id="loadingPoint"
                 value={loadingPoint}
                 onChange={(e) => setLoadingPoint(e.target.value)}
-
                 className="w-full p-2 border rounded-md"
               />
             </div>
@@ -191,11 +186,10 @@ export default function BidForm() {
             <div className="space-y-2">
               <Form.Label htmlFor="unloadingPoint">Unloading Point</Form.Label>
               <input
-               required
+                required
                 id="unloadingPoint"
                 value={unloadingPoint}
                 onChange={(e) => setUnloadingPoint(e.target.value)}
-
                 className="w-full p-2 border rounded-md"
               />
             </div>
@@ -206,7 +200,7 @@ export default function BidForm() {
               <div className="flex space-x-4">
                 <label className="flex items-center space-x-2">
                   <input
-                   required
+                    required
                     type="radio"
                     name="vehicleType"
                     value="truck"
@@ -216,7 +210,7 @@ export default function BidForm() {
                 </label>
                 <label className="flex items-center space-x-2">
                   <input
-                   required
+                    required
                     type="radio"
                     name="vehicleType"
                     value="bus"
@@ -232,7 +226,7 @@ export default function BidForm() {
               <Form.Label>Fuel Type</Form.Label>
               <div className="relative w-full border rounded-md p-2 flex items-center">
                 <select
-                 required
+                  required
                   className="w-full appearance-none bg-transparent focus:outline-none"
                   value={fuelType}
                   onChange={(e) => setFuelType(e.target.value)}
@@ -253,7 +247,7 @@ export default function BidForm() {
               <div className="flex space-x-4">
                 <label className="flex items-center space-x-2">
                   <input
-                   required
+                    required
                     type="radio"
                     name="bodyType"
                     value="open"
@@ -263,7 +257,7 @@ export default function BidForm() {
                 </label>
                 <label className="flex items-center space-x-2">
                   <input
-                   required
+                    required
                     type="radio"
                     name="bodyType"
                     value="closed"
@@ -277,11 +271,10 @@ export default function BidForm() {
             <div className="space-y-2">
               <Form.Label htmlFor="material">Material</Form.Label>
               <input
-               required
+                required
                 id="material"
                 value={material}
                 onChange={(e) => setMaterial(e.target.value)}
-
                 className="w-full p-2 border rounded-md"
               />
             </div>
@@ -289,29 +282,25 @@ export default function BidForm() {
             <div className="space-y-2">
               <Form.Label htmlFor="weight">Weight (In kg)</Form.Label>
               <input
-               required
+                required
                 id="weight"
                 type="number"
                 min="0"
                 value={weight}
                 onChange={(e) => setWeight(e.target.value)}
-
                 className="w-full p-2 border rounded-md"
               />
             </div>
 
-
-
             <div className="space-y-2">
               <Form.Label htmlFor="targetPrice">Target Price (₹)</Form.Label>
               <input
-               required
+                required
                 id="targetPrice"
                 type="number"
                 min="0"
                 value={targetPrice}
                 onChange={(e) => setTargetPrice(e.target.value)}
-
                 className="w-full p-2 border rounded-md"
               />
             </div>
@@ -319,13 +308,12 @@ export default function BidForm() {
             <div className="space-y-2">
               <Form.Label htmlFor="numOfBidder">Number of Bidder</Form.Label>
               <input
-               required
+                required
                 id="numOfBidder"
                 type="number"
                 min="0"
                 value={numOfBidder}
                 onChange={(e) => setNumOfBidder(e.target.value)}
-
                 className="w-full p-2 border rounded-md"
               />
             </div>
@@ -333,13 +321,12 @@ export default function BidForm() {
             <div className="space-y-2">
               <Form.Label htmlFor="bidRemaining">Bid Remaining</Form.Label>
               <input
-               required
+                required
                 id="bidRemaining"
                 type="number"
                 min="0"
                 value={bidRemaining}
                 onChange={(e) => setBidRemaining(e.target.value)}
-
                 className="w-full p-2 border rounded-md"
               />
             </div>
@@ -350,7 +337,7 @@ export default function BidForm() {
               <div className="flex items-center border rounded-md p-2">
                 <CalendarIcon className="mr-2 text-gray-500" />
                 <input
-                 required
+                  required
                   type="date"
                   value={requestDate || ""}
                   onChange={(e) => setRequestDate(e.target.value)}
@@ -365,7 +352,7 @@ export default function BidForm() {
               <div className="flex items-center border rounded-md p-2">
                 <CalendarIcon className="mr-2 text-gray-500" />
                 <input
-                 required
+                  required
                   type="date"
                   value={expiryDate || ""}
                   onChange={(e) => setExpiryDate(e.target.value)}
@@ -378,7 +365,7 @@ export default function BidForm() {
             <div className="space-y-2">
               <Form.Label htmlFor="remarks">Remarks</Form.Label>
               <textarea
-               required
+                required
                 id="remarks"
                 value={remarks}
                 onChange={(e) => setRemarks(e.target.value)}
@@ -388,16 +375,16 @@ export default function BidForm() {
 
           </div>
 
-          {/* <Link to="/"> */}
+          {/* Submit Button */}
           <div className="flex justify-center">
-            <Button
-              type="submit"
-              className="w-full md:w-auto min-w-[200px] bg-blue-500 text-white py-2 rounded-md"
-            >
-              Create Bid
-            </Button>
+          <button
+            type="submit"
+            className="text-white bg-blue-600 px-8 py-4 rounded-md hover:bg-blue-700"
+          >
+            Create Bid
+          </button>
           </div>
-          {/* </Link> */}
+        
         </form>
       </div>
     </div>

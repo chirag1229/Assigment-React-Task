@@ -12,7 +12,7 @@ const BidTable: React.FC = () => {
   const [bids, setBids] = useState<any[]>([]);
 
   const toggleRow = (id: number) => {
-    setExpandedRow(expandedRow === id ? null : id);
+    setExpandedRow((prevRow) => (prevRow === id ? null : id));
   };
 
   useEffect(() => {
@@ -78,21 +78,23 @@ const BidTable: React.FC = () => {
                     <div className="text-sm text-gray-500">{bid.referenceId}</div>
                   </td>
                   <td className="px-4 py-3 text-center flex gap-2">
-                    <button
+                     <button
                       onClick={() => toggleRow(bid.id)}
                       className="text-blue-600 flex items-center justify-center gap-1 mx-auto"
                     >
                       View Details
+                      {/* Chevron Icon (changes based on row expansion) */}
                       {expandedRow === bid.id ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                     </button>
                     <button
-                      type='button'
+                      type="button"
                       onClick={() => {
                         const newData = bids.filter((e: any) => e.id !== bid.id);
                         setBids(newData);
                         localStorage.setItem("bids", JSON.stringify(newData));
                       }}
-                      className='text-red-500'>
+                      className="text-red-500"
+                    >
                       delete
                     </button>
                   </td>
@@ -120,10 +122,9 @@ const BidTable: React.FC = () => {
                             </div>
 
                             <div>
-                              <div className="flex items-start gap-2"> 
-                                <div className="w-2 h-2 mt-2"><FaLocationDot  color='red'/></div>
-                                <div>                               
-                                
+                              <div className="flex items-start gap-2">
+                                <div className="w-2 h-2 mt-2"><FaLocationDot color="red" /></div>
+                                <div>
                                   <div className="font-medium">{bid.unloadingPoint}</div>
                                   <div className="text-sm text-gray-600">{bid.unloadingPoint}</div>
                                   <div className="text-sm text-gray-500">Unloading Point: {bid.unloadingPoint}</div>
@@ -136,23 +137,24 @@ const BidTable: React.FC = () => {
                         <div className="space-y-3">
                           <div>
                             <div className="flex items-center gap-2">
-                            <CiCalendarDate />
+                              <CiCalendarDate />
                               <span className="text-gray-600">Vehicle loading date:</span>
                               <span>{bid.vehicleLoadingDate}</span>
                             </div>
                           </div>
                           <div>
-                            <div className="flex items-center gap-2"><FaBus />
+                            <div className="flex items-center gap-2">
+                              <FaBus />
                               <span className="text-gray-600">Vehicle Type:</span>
                               <span>{bid.vehicleType}</span>
                               <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">
-                                {bid.vehicleType}
+                                {bid.fuelType}
                               </span>
                             </div>
                           </div>
                           <div>
                             <div className="flex items-center gap-2">
-                            <FaBoxOpen />
+                              <FaBoxOpen />
                               <span className="text-gray-600">Material:</span>
                               <span>{bid.material}</span>
                             </div>
@@ -182,15 +184,14 @@ const BidTable: React.FC = () => {
                         <div className="space-y-3">
                           <div>
                             <div className="flex items-center gap-2">
-                            
-                            <FaUser />
+                              <FaUser />
                               <span className="text-gray-600">Assigned Staff:</span>
                               <span>{bid.assignedStaff}</span>
                             </div>
                           </div>
                           <div>
-                            <div className="flex items-center gap-2">                
-                          <IoCallSharp />
+                            <div className="flex items-center gap-2">
+                              <IoCallSharp />
                               <span className="text-gray-600">Phone number:</span>
                               <span className="text-blue-600">{bid.phoneNumber}</span>
                             </div>
@@ -225,7 +226,7 @@ const BidTable: React.FC = () => {
             ))
           ) : (
             <tr>
-              <td colSpan={10} className='text-center py-2 bg-gray-200'>
+              <td colSpan={10} className="text-center py-2 bg-gray-200">
                 no bids added
               </td>
             </tr>
@@ -234,6 +235,6 @@ const BidTable: React.FC = () => {
       </table>
     </div>
   );
-}
+};
 
 export default BidTable;
