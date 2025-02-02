@@ -1,4 +1,5 @@
 import { useState ,FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -7,6 +8,8 @@ export default function Login() {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -27,7 +30,7 @@ export default function Login() {
     if (user) {
       setSuccessMessage("Login successful! Redirecting...");
       setTimeout(() => {
-        window.location.href = "/dashboard"; // Redirect to dashboard
+        navigate("/dashboard");
       }, 1500);
       localStorage.setItem("user",JSON.stringify(user))
     } else {
@@ -95,11 +98,24 @@ export default function Login() {
           </button>
         </form>
 
-        <p className="text-center text-sm text-gray-500 mt-4">
-          Don't have an account?{" "}
-          <a href="/signup" className="text-blue-600 font-medium hover:underline">Sign up</a>
-        </p>
+        {SignUpRedirect()}
       </div>
     </div>
   );
 }
+
+const SignUpRedirect = () => {
+  const navigate = useNavigate();
+
+  return (
+    <p className="text-center text-sm text-gray-500 mt-4">
+      Don't have an account?{" "}
+      <span
+        onClick={() => navigate("/signup")}
+        className="text-blue-600 font-medium hover:underline cursor-pointer"
+      >
+        Sign up
+      </span>
+    </p>
+  );
+};

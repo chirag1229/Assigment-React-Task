@@ -97,10 +97,24 @@ export default function Signup() {
           </Button>
         </form>
 
-        <p className="text-center text-gray-500 mt-4">
-          Already have an account? <a href="/login" className="text-blue-500">Login</a>
-        </p>
+        {LoginRedirect()}
       </div>
     </div>
   );
 }
+
+const LoginRedirect = () => {
+  const navigate = useNavigate();
+
+  return (
+    <p className="text-center text-gray-500 mt-4">
+      Already have an account?{" "}
+      <span
+        onClick={() => navigate("/login")}
+        className="text-blue-500 hover:underline cursor-pointer"
+      >
+        Login
+      </span>
+    </p>
+  );
+};
